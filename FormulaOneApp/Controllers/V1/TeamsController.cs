@@ -41,4 +41,21 @@ public class TeamsController : ControllerBase
             return BadRequest("Invalid id");
         return Ok(team);
      }
+
+     [HttpPost]
+     public IActionResult Post(Team team)
+     {
+        teams.Add(team);
+        return CreatedAtAction("Get", team.Id, team);
+     }
+
+     [HttpPatch]
+     public IActionResult Patch(int id, string country)
+     {
+        var team = teams.FirstOrDefault(x=>x.Id == id);
+        if(team == null)
+            return BadRequest("Invalid id"); 
+        team.Country = country; 
+        return NoContent(); 
+     }
 }
