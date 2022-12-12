@@ -1,11 +1,14 @@
 using FormulaOneApp;
+using FormulaOneApp.Data;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddDbContext<AppDbContext>(options=>options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddApiVersioning(config=>
 {
     config.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(2, 0);
